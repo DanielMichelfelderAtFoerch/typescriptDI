@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
-    "module": "ES2022",
+    "target": "ESNext",
+    "module": "ESNext",
     "moduleResolution": "node",
     "declaration": true,
     "strict": true,
@@ -16,7 +16,9 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true,
+    "experimentalDecorators": false,
+    "emitDecoratorMetadata": false,
+    "useDefineForClassFields": false,
     "sourceMap": true,
     "outDir": "./dist/tsc/",
     "typeRoots": [
@@ -28,7 +30,7 @@
       "mustache"
     ],
     "lib": [
-      "ES2022",
+      "ESNext",
       "DOM"
     ]
   },
