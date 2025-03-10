@@ -23,22 +23,16 @@
     "clean": "rm -rf dist build package",
     "ts-node": "ts-node",
     "docs": "typedoc --entryPoints src/main.ts",
-    "build": "tsc -p tsconfig.json",
-    "build-all": "yarn clean && yarn build && yarn esbuild-node && yarn esbuild-browser",
-    "esbuild-browser": "esbuild src/browser.ts --bundle --minify --sourcemap=external --outfile=dist/esbuild/browser.js",
-    "esbuild-browser:dev": "esbuild src/browser.ts --bundle --outfile=dist/esbuild/browser.js",
-    "esbuild-browser:watch": "esbuild src/browser.ts --bundle --watch --outfile=dist/esbuild/browser.js",
-    "esbuild-node": "esbuild src/cli.ts --bundle --platform=node --minify --sourcemap=external --outfile=dist/esbuild/cli.js",
-    "esbuild-node:dev": "esbuild src/cli.ts --bundle --platform=node --sourcemap=external --outfile=dist/esbuild/cli.js",
-    "esbuild-node:watch": "esbuild src/cli.ts --bundle --platform=node --watch --sourcemap=external --outfile=dist/esbuild/cli.js",
-    "serve": "serve dist/"
+    "start": "node scripts/build.js --watch --serve",
+    "build": "node scripts/build.js"
   },
   "devDependencies": {
     "@types/jest": "^27.4.1",
-    "@types/node": "^17.0.26",
     "@types/mustache": "^4.2.5",
+    "@types/node": "^17.0.26",
     "@typescript-eslint/eslint-plugin": "^5.20.0",
     "@typescript-eslint/parser": "^5.20.0",
+    "chokidar": "^4.0.3",
     "esbuild": "^0.14.38",
     "esbuild-plugin-copy": "^2.1.1",
     "esbuild-plugin-d.ts": "^1.3.1",
@@ -48,7 +42,8 @@
     "ts-jest": "^27.1.4",
     "ts-node": "^10.7.0",
     "typedoc": "^0.22.15",
-    "typescript": "^4.6.3"
+    "typescript": "^4.6.3",
+    "yargs": "^17.7.2"
   },
   "dependencies": {
     "mustache": "^4.2.0"

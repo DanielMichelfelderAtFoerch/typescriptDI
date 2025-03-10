@@ -4,7 +4,6 @@ const homeController = new HomeController();
 
 
 document.addEventListener('DOMContentLoaded', async () => {
-  console.log('DOM loaded.');
   await bootstrapAsync();
 });
 
