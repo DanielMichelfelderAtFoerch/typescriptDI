@@ -25,6 +25,7 @@ export class HomePageService {
 
         if (this._permissionService.canShowAge()) {
             model.age = this._userService.getUserAge();
+            model.showAge = true;
         }
 
         return model;

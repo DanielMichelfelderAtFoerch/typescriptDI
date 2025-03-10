@@ -1,17 +1,16 @@
 import { PageBaseController } from "../page.base-controller";
-import { HomeModel } from "./home.model";
+import { HomePageService } from "./home-page.service";
 
 export class HomeController extends PageBaseController {
     templatePath = 'pages/home/home.template.html';
     model: unknown;
     public title = 'Home';
     public menuId = 'home';
-    constructor() {
+
+    constructor(
+        private _homePageService: HomePageService
+    ) {
         super();
-        const homeModel = new HomeModel();
-        homeModel.name = 'John Doe';
-        homeModel.age = 25;
-        homeModel.text = "Thisk is hard coded text";
-        this.model = homeModel;
+        this.model = this._homePageService.getModel();
     }
 }
