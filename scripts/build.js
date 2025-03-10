@@ -2,7 +2,6 @@ const esbuild = require('esbuild');
 const copyPlugin = require('esbuild-plugin-copy');
 const yargs = require('yargs');
 const { hideBin } = require('yargs/helpers');
-const chokidar = require('chokidar');
 
 const argv = yargs(hideBin(process.argv))
     .option('watch', {
@@ -34,38 +33,38 @@ const buildOptions = {
     ]
 };
 
-const build = () => {
-    esbuild.build(buildOptions).then(result => {
-        console.log('Build succeeded:', result);
-    }).catch(error => {
-        console.error('Build failed:', error);
-        process.exit(1);
-    });
-};
 
-if (argv.watch) {
-    console.log('Watching files for changes...');
-    const watcher = chokidar.watch('src/**/*.{ts,html}', {
-        persistent: true
-    });
+esbuild.context(buildOptions).then(buildContext => {
 
-    watcher.on('change', path => {
-        console.log(`File ${path} has been changed. Rebuilding...`);
-        build();
-    });
+    if (argv.serve) {
+        console.log('Starting web server');
+        buildContext.serve({
+            servedir: 'dist',
+        }).then(serverResult => {
+            serverResult.hosts.forEach(host => {
+                console.log(`Server is running on http://${host}:${serverResult.port}`);
+            });
 
-    build();
-}
+        }).catch(error => {
+            console.error('Serve failed:', error);
+            process.exit(1);
+        });
+    }
 
-if (argv.serve) {
-    esbuild.serve({
-        servedir: 'dist',
-    }, buildOptions).then(server => {
-        console.log(`Server is running on http://${server.host}:${server.port}`);
-    }).catch(error => {
-        console.error('Serve failed:', error);
-        process.exit(1);
-    });
-} else if (!argv.watch) {
-    build();
-}
+    if (argv.watch) {
+        buildContext.watch().then(() => {
+            console.log('Watching files for changes...');
+            buildContext.rebuild();
+        });
+
+    }
+
+    if (!argv.serve && !argv.watch) {
+        console.log('Build succeeded');
+        process.exit(0);
+    }
+
+}).catch(error => {
+    console.error('Build failed:', error);
+    process.exit(1);
+});

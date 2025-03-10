@@ -8,9 +8,6 @@ export abstract class PageBaseController {
     public async toHtmlAsync(): Promise<string> {
         const response = await fetch(`./${this.templatePath}`)
         const template = await response.text();
-        console.log("template", template);
-
-
         const html = mustache.render(template, {
             model: this.model
         });
