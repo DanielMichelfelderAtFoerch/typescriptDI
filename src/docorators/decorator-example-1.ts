@@ -10,7 +10,7 @@ function loggedMethod(originalMethod: any, _context: any) {
     return replacementMethod;
 }
 
-export class DatabaseTestService {
+export class DecoratorExample1 {
     @loggedMethod
     getUser(id: number, name: string) {
         console.log(`👤 Nutzer gefunden: ID=${id}, Name=${name}`);
