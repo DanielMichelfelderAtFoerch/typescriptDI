@@ -1,5 +1,7 @@
+import { Service } from "typedi";
 import { PermissionLocalStorageRepository } from "./permission-local-storage-repository";
 
+@Service()
 export class PermissionService {
 
     constructor(

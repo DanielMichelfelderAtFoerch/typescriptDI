@@ -2,6 +2,7 @@ const esbuild = require('esbuild');
 const copyPlugin = require('esbuild-plugin-copy');
 const yargs = require('yargs');
 const { hideBin } = require('yargs/helpers');
+const { esbuildDecorators } = require('esbuild-decorators');
 
 const argv = yargs(hideBin(process.argv))
     .option('watch', {
@@ -29,7 +30,8 @@ const buildOptions = {
                 from: ['./src/**/*.html'],
                 to: ['./'],
             },
-        })
+        }),
+        esbuildDecorators()
     ]
 };
 
@@ -60,7 +62,12 @@ esbuild.context(buildOptions).then(buildContext => {
     }
 
     if (!argv.serve && !argv.watch) {
-        console.log('Build succeeded');
+        buildContext.build().then(() => {
+            console.log('Build succeeded');
+        }).catch(error => {
+            console.error('Build failed:', error);
+            process.exit(1);
+        });
         process.exit(0);
     }
 

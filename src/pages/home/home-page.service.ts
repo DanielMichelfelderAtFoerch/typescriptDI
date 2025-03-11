@@ -1,9 +1,11 @@
+import { Service } from "typedi";
 import { LoggingService } from "../../framework/logging.service";
 import { PermissionService } from "../../framework/permission.service";
 import { UserService } from "../../framework/user.service";
 import { HomeDataService } from "./home-data.service";
 import { HomeModel } from "./home.model";
 
+@Service()
 export class HomePageService {
 
     constructor(

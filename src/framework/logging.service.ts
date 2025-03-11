@@ -1,6 +1,8 @@
+import { Service } from "typedi";
 import { LogLevel } from "./log-level.enum";
 import { LoggingConfigurationService } from "./logging-configuration.service";
 
+@Service()
 export class LoggingService {
 
     private _logLevel: LogLevel = LogLevel.Debug;
