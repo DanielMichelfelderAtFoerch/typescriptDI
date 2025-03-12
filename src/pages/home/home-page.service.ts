@@ -26,7 +26,7 @@ export class HomePageService {
         const data = this._homeDataSerivce.getHomeData();
         model.text = data.message;
 
-        if (this._permissionService.canShowAge()) {
+        if (this._permissionService.canShowAge() === true) {
             model.age = this._userService.getUserAge();
             model.showAge = true;
         }
