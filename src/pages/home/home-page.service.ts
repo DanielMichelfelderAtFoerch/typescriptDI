@@ -1,9 +1,10 @@
-import { Service } from "typedi";
+import { Inject, Service } from "typedi";
 import { LoggingService } from "../../framework/logging.service";
-import { PermissionService } from "../../framework/permission.service";
 import { UserService } from "../../framework/user.service";
 import { HomeDataService } from "./home-data.service";
 import { HomeModel } from "./home.model";
+import { IPermissionService } from "../../framework/permission/permission-service.interface";
+import { PERMISSON_TOKEN } from "../../framework/permission/permission-token";
 
 @Service()
 export class HomePageService {
@@ -12,7 +13,7 @@ export class HomePageService {
         private _loggingService: LoggingService,
         private _userService: UserService,
         private _homeDataSerivce: HomeDataService,
-        private _permissionService: PermissionService
+        @Inject(PERMISSON_TOKEN) private _permissionService: IPermissionService
     ) {
 
     }

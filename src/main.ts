@@ -1,22 +1,33 @@
 import 'reflect-metadata';
 import Container from 'typedi';
 import { HomeController } from "./pages/home/home.controller";
+import { PermissionNewService } from './framework/permission/permission-new.service';
+import { PERMISSON_TOKEN } from './framework/permission/permission-token';
+import { IPermissionService } from './framework/permission/permission-service.interface';
+import { PermissionOldService } from './framework/permission/permission-old.service';
 
-// import { LoggingConfigurationService } from "./framework/logging-configuration.service";
-// import { LoggingService } from "./framework/logging.service";
 
-// import { DecoratorExample2EasyWithParams, DecoratorExample2ReadParams } from "./docorators/decorator-example2-read-params";
 
-// const permissionLocalStorageRepository = new PermissionLocalStorageRepository();
-// const permissionService = new PermissionService(permissionLocalStorageRepository);
-// const homeDataService = new HomeDataService();
-// const userService = new UserService();
 
-// const loggingConfigurationService = new LoggingConfigurationService();
-// const loggingService = new LoggingService(loggingConfigurationService)
-// const homeService = new HomePageService(loggingService, userService, homeDataService, permissionService);
+// Container.set({ id: PERMISSON_TOKEN, type: PermissionNewService });
 
-// const homeController = new HomeController(homeService);
+function resolveIPermissionService(): IPermissionService {
+
+  const result = 5;
+
+  if (result === 5) {
+    return Container.get(PermissionNewService);
+  }
+  else {
+    return Container.get(PermissionOldService);
+  }
+}
+
+
+Container.set({
+  id: PERMISSON_TOKEN,
+  factory: resolveIPermissionService,
+});
 
 const homeController = Container.get(HomeController);
 

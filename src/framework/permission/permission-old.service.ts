@@ -1,8 +1,9 @@
 import { Service } from "typedi";
 import { PermissionLocalStorageRepository } from "./permission-local-storage-repository";
+import { IPermissionService } from "./permission-service.interface";
 
 @Service()
-export class PermissionService {
+export class PermissionOldService implements IPermissionService {
 
     constructor(
         private readonly _permissionRepository: PermissionLocalStorageRepository

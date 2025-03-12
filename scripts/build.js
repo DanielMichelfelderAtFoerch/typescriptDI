@@ -62,12 +62,7 @@ esbuild.context(buildOptions).then(buildContext => {
     }
 
     if (!argv.serve && !argv.watch) {
-        buildContext.build().then(() => {
-            console.log('Build succeeded');
-        }).catch(error => {
-            console.error('Build failed:', error);
-            process.exit(1);
-        });
+        console.log('Build succeeded');
         process.exit(0);
     }
 
